@@ -1,0 +1,27 @@
+﻿@using Microsoft.AspNetCore.Identity
+
+
+@inject IHttpContextAccessor HttpContextAccessor
+<ul class="navbar-nav">
+    @{
+        ViewBag.userId = HttpContextAccessor.HttpContext.Session.GetString("userId");
+     }
+       
+@if (ViewBag.userId!=null)
+{
+    <li class="nav-item">
+        <a  class="nav-link text-light" asp-action="Index" asp-controller="user"  title="Manage">My Books</a>
+    </li>
+    <li class="nav-item">
+        <form  class="form-inline"  asp-controller="Login" asp-action="Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+            <button  type="submit" class="nav-link btn btn-link text-light">Logout</button>
+        </form>
+    </li>
+}
+else
+{
+    <li class="nav-item">
+        <a class="nav-link text-light"  asp-controller="Home" asp-action="Index" ></a>
+    </li>
+}
+</ul>

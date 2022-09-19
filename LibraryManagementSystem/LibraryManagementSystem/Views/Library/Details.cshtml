@@ -1,0 +1,52 @@
+﻿@model LibraryManagementSystem.Models.BooksAvailable
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+
+<div class="container pt-5">
+    <div class="row">
+        <div class=" col-lg-4 col-md-4  col-xl-4">
+            <img src=@Model.ImageUrl class="col-lg-2" alt="..." style="width:20rem;">
+        </div>
+
+        <div class="col-xl-8 col-lg-8 col-md-8 ">
+            <h3 class="card-title">@Html.DisplayFor(model => model.Title)</h3>
+            <h4 class="card-subtitle mb-2 text-muted">by @Html.DisplayFor(model => model.Author)</h4>
+            <hr />
+            <dl class="d-flex row ">
+
+                <dt class="col-lg-2">
+                    @Html.DisplayNameFor(model => model.Genre)
+                </dt>
+                <dd class="col-lg-10">
+                    @Html.DisplayFor(model => model.Genre)
+                </dd>
+                <dt class="col-lg-2">
+                    @Html.DisplayNameFor(model => model.DateAdded)
+                </dt>
+                <dd class="col-lg-10">
+                    @Html.DisplayFor(model => model.DateAdded)
+                </dd>
+
+            </dl>
+            <p style="text-indent:2rem">
+                @Html.DisplayFor(model => model.BookDescription)
+            </p>
+
+            <form asp-action="Details">
+                <input type="hidden" asp-for="BookId" />
+                <input class="btn-dark text-light" value="Get the book!" type="submit" name="Details" onclick="myFunction"/>
+            </form>
+
+
+            @*<button class="btn-info text-light" type="submit">
+            Get this book!
+            </button>*@
+
+        </div>
+
+    </div>
+</div>
+@* onsubmit="alert('You can collect the book from library desk\nThank you!');*@
