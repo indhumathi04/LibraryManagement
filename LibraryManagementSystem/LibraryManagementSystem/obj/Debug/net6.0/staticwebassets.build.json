@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "WNT5/2L5gvl0FrEzysXma2BU1DwpzlF04ZAQx9aim8w=",
+  "Hash": "G3Va6bCg5RLIFJf9YjYDmiV9JL7iwoiyR/yKR4VQNow=",
   "Source": "LibraryManagementSystem",
   "BasePath": "_content/LibraryManagementSystem",
   "Mode": "Default",
@@ -100,6 +100,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\Images\\aliceNetwork.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\Admin\\Desktop\\training\\mvc\\MVC Library Project\\LibraryManagementSystem\\LibraryManagementSystem\\wwwroot\\Images\\bannerImg.jpg",
+      "SourceId": "LibraryManagementSystem",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Admin\\Desktop\\training\\mvc\\MVC Library Project\\LibraryManagementSystem\\LibraryManagementSystem\\wwwroot\\",
+      "BasePath": "_content/LibraryManagementSystem",
+      "RelativePath": "Images/bannerImg.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Images\\bannerImg.jpg"
     },
     {
       "Identity": "C:\\Users\\Admin\\Desktop\\training\\mvc\\MVC Library Project\\LibraryManagementSystem\\LibraryManagementSystem\\wwwroot\\Images\\l1.png",

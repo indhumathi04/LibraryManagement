@@ -23,20 +23,33 @@ namespace LibraryManagementSystem.Controllers
         [ActionName("Details")]
         public IActionResult DetailsAdd(int id)
         {
-            var taken = db.BooksTransactions.Where(x => x.BookId == id && x.Status == "issued").ToList();
-            if (taken.Count == 0)
+            if (HttpContext.Session.GetInt32("userId") != null)
             {
-                BooksTransaction b = new BooksTransaction();
-                b.UserId = HttpContext.Session.GetInt32("userId");
-                b.BookId = id;
-                b.IssueDate = DateTime.Now;
-                b.DueDate = DateTime.Now.AddDays(12);
-                b.Status = "issued";
-                db.BooksTransactions.Add(b);
-                db.SaveChanges();
-                return RedirectToAction("viewBooks");
+                var taken = db.BooksTransactions.Where(x => x.BookId == id && x.Status == "issued").ToList();
+                if (taken.Count == 0)
+                {
+                    BooksTransaction b = new BooksTransaction();
+                    b.UserId = HttpContext.Session.GetInt32("userId");
+                    b.BookId = id;
+                    b.IssueDate = DateTime.Now;
+                    b.DueDate = DateTime.Now.AddDays(12);
+                    b.Status = "issued";
+                    db.BooksTransactions.Add(b);
+                    db.SaveChanges();
+                    return RedirectToAction("viewBooks");
+                }
+                else
+                {
+                    TempData["BookUnavailable"] = "This Book is already taken";
+                    return RedirectToAction("Details",id);
+                }
             }
-            return RedirectToAction("viewBooks");
+            else
+            {
+                TempData["login"] = "Login to continue";
+                return RedirectToAction("userLogin", "Login");
+            }
+            
 
         }
 

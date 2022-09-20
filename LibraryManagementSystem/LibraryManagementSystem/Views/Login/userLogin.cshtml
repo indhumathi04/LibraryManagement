@@ -3,13 +3,25 @@
 @{
     ViewData["Title"] = "userLogin";
 }
+<div class="container " style="width:100%">
+    <div class="row d-flex text-center justify-content-center align-items-center container ">
+
+        @{
+            if (TempData["login"] != null)
+            {
+                <strong class="alert alert-primary">@TempData["login"]</strong>
+            }
+        }
+    </div>
+</div>
 
 <div class="d-flex justify-content-center align-items-center container ">
+
     <h1>User Login</h1>
 </div>
 
 <div class="row  text-center d-flex justify-content-center align-items-center container ">
-        <hr />
+    <hr />
 
     <div class="col-md-4 ">
         <form asp-action="userLogin">
@@ -21,7 +33,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Password" class="control-label"></label>
-                <input asp-for="Password" class="form-control" type="password"/>
+                <input asp-for="Password" class="form-control" type="password" />
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
             <div class="form-group pt-4">
@@ -29,9 +41,18 @@
             </div>
         </form>
     </div>
+     <a class="pt-5"asp-action="adminLogin" style="float:right">Login as admin </a>
 </div>
 
 
+   
+
+    
+
+
+
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }

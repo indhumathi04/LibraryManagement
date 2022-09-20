@@ -1,5 +1,6 @@
 ﻿using LibraryManagementSystem.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Dynamic;
 
 namespace LibraryManagementSystem.Controllers
@@ -13,22 +14,31 @@ namespace LibraryManagementSystem.Controllers
         }
         public IActionResult Index()
         {
-            List<object> userRec = new List<object>();
-            int id = (int)HttpContext.Session.GetInt32("userId");
-            var res = db.UserDetails.Where(x => x.UserId == id).SingleOrDefault();
-            var books = db.BooksTransactions.Where(x => x.UserId == id).ToList();
-            var bookIdList = (from b in books select b.BookId).ToList();
-            var userBooks = db.BooksAvailables.Where(x => bookIdList.Contains(x.BookId)).ToList();
-            userRec.Add(res);
-            userRec.Add(userBooks);
-            userRec.Add(books);
-            return View(userRec);
+            try
+            {
+                UserAndBooks ub = new UserAndBooks();
+
+                int id = (int)HttpContext.Session.GetInt32("userId");
+
+                ub.books = db.BooksTransactions.Include(x => x.Book).Where(x => x.UserId == id).ToList();
+
+                ub.User = db.UserDetails.Where(x => x.UserId == id).SingleOrDefault();
+
+                return View(ub);
+            }
+            catch(InvalidOperationException e)
+            {
+                TempData["BookUnavailable"] = "Login to continue";
+                return RedirectToAction("userLogin", "Login");
+            }
         }
         public IActionResult Renew(int id)
         {
-            return View();
+            var book = db.BooksTransactions.Include(x => x.Book).Where(x => x.TransId == id).SingleOrDefault();
+            return View(book);
         }
-
+        [HttpPost]
+        [ActionName("Renew")]
         public IActionResult RenewConfirm(int id)
         {
             var res = db.BooksTransactions.Where(x => x.TransId == id).SingleOrDefault();

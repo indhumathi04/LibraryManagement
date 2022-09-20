@@ -6,9 +6,17 @@
 
 
 <div class="container pt-5">
+    @{
+    if (TempData["BookUnavailable"]!= null)
+    {
+        <div class="row  text-center d-flex justify-content-center align-items-center"  >
+    <strong class="alert alert-primary"> @TempData["BookUnavailable"]</strong>
+    </div>
+    }
+}
     <div class="row">
         <div class=" col-lg-4 col-md-4  col-xl-4">
-            <img src=@Model.ImageUrl class="col-lg-2" alt="..." style="width:20rem;">
+            <img src=@Model.ImageUrl class="col-lg-2" alt="..." style="width:60%;">
         </div>
 
         <div class="col-xl-8 col-lg-8 col-md-8 ">
@@ -37,16 +45,11 @@
 
             <form asp-action="Details">
                 <input type="hidden" asp-for="BookId" />
-                <input class="btn-dark text-light" value="Get the book!" type="submit" name="Details" onclick="myFunction"/>
+                <input class="btn-dark text-light" value="Get this book!" type="submit" name="Details" />
             </form>
 
-
-            @*<button class="btn-info text-light" type="submit">
-            Get this book!
-            </button>*@
 
         </div>
 
     </div>
 </div>
-@* onsubmit="alert('You can collect the book from library desk\nThank you!');*@

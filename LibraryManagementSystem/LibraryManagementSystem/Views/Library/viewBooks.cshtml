@@ -3,7 +3,9 @@
 @{
     ViewData["Title"] = "viewBooks";
 }
-
+<div class="container" style="width:100%;background-color: #0cccc9;">
+    <h2 class="text-lg-center">Hello</h2>
+</div>
 
 <h1 class="text-center">Books Available</h1>
 
@@ -23,4 +25,26 @@
             </div>
         </section>
     }
+</div>
+<div>
+    <ul class="list-group">
+    @foreach (var item in Model)
+    {
+        <li class="list-group-item p-3">
+            <div class="row d-flex ">
+                    <div class="col-lg-2 col-md-2  col-xl-2">
+                        <img src=@item.ImageUrl class="img-thumbnail" alt="..." style="width:10rem">
+                </div>
+
+                    <div class="col-xl-10 col-lg-10 col-md-10 pt-4 pb-4 ">
+                        <h5 class="card-title">@Html.DisplayFor(modelItem => item.Title)</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">by @Html.DisplayFor(modelItem => item.Author)</h6>
+                        <button class="btn-info">
+                            <a asp-action="Details" asp-route-id="@item.BookId" class="text-decoration-none" style="color:white">Know more</a>
+                        </button>
+                    </div>
+            </div>
+        </li>
+    }
+    </ul>
 </div>

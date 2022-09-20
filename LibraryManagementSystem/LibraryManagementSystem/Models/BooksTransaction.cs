@@ -11,5 +11,8 @@ namespace LibraryManagementSystem.Models
         public DateTime? IssueDate { get; set; }
         public DateTime? DueDate { get; set; }
         public string? Status { get; set; }
+
+        public virtual BooksAvailable? Book { get; set; }
+        public virtual UserDetail? User { get; set; }
     }
 }

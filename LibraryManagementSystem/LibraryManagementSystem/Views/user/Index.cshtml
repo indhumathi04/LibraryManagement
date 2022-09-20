@@ -1,43 +1,40 @@
 ﻿@using LibraryManagementSystem;
-@model IEnumerable<object>
+@model LibraryManagementSystem.Models.UserAndBooks;
 @{
     ViewData["Title"] = "Details";
-    LibraryManagementSystem.Models.UserDetail user = (LibraryManagementSystem.Models.UserDetail)Model.ToList()[0];
-    List<LibraryManagementSystem.Models.BooksAvailable> userBooks = (List<LibraryManagementSystem.Models.BooksAvailable>)Model.ToList()[1];
-    List<LibraryManagementSystem.Models.BooksTransaction> trans = (List<LibraryManagementSystem.Models.BooksTransaction>)Model.ToList()[2];
+    //LibraryManagementSystem.Models.UserDetail user = (LibraryManagementSystem.Models.UserDetail)Model.ToList()[1];
+    //List<LibraryManagementSystem.Models.BooksTransaction> Books = (List<LibraryManagementSystem.Models.BooksTransaction>) Model.ToList()[0];
 }
-
+<div class="container-fluid">
 <div class="row">
-    <dl>
+    <dl class="row">
+        <dt class="col-md-2 col-lg-2 col-sm-2">
+            @Html.DisplayNameFor(modelItem=> modelItem.User.UserId)
+        </dt>
+        <dd class="col-md-2 col-lg-2 col-sm-2">
+            @Html.DisplayFor(modelItem => modelItem.User.UserId)
+        </dd>
+        <dt class="col-md-2 col-lg-2 col-sm-2">
+            @Html.DisplayNameFor(modelItem=> modelItem.User.UserName)
+        </dt>
+        <dd class="col-md-2 col-lg-2 col-sm-2">
+            @Html.DisplayFor(modelItem => modelItem.User.UserName)
+        </dd>
         <dt class="col-md-6 col-lg-6 col-sm-6">
-            @Html.DisplayNameFor(modelItem=> user.UserId)
+            @Html.DisplayNameFor(modelItem=> modelItem.User.Email)
         </dt>
-        <dd class="col-md-6 col-lg-6  col-sm-6">
-            @Html.DisplayFor(modelItem => user.UserId)
-        </dd>
-        <dt class="col-md-2 col-lg-2 col-sm-2">
-            @Html.DisplayNameFor(modelItem=> user.UserName)
-        </dt>
-        <dd class="col-md-6 col-lg-6 col-sm-6">
-            @Html.DisplayFor(modelItem => user.UserName)
-        </dd>
-        <dt class="col-md-2 col-lg-2 col-sm-2">
-            @Html.DisplayNameFor(modelItem=> user.Email)
-        </dt>
-        <dd class="col-md-6 col-lg-6 col-sm-6">
-            @Html.DisplayFor(modelItem => user.Email)
+        <dd class="col-md-2 col-lg-2 col-sm-2">
+            @Html.DisplayFor(modelItem => modelItem.User.Email)
         </dd>
     </dl>
 </div>
+ </div>
 <div>
-        <table class="table">
-            <thead>
+        <table class="table table-hover">
+        <thead class="text-light bg-dark ms-1">
                 <tr>
                     <th>
-                        Book Title
-                    </th>
-                    <th>
-                        Author
+                        Book Detail
                     </th>
                     <th>
                         Issue Date
@@ -51,26 +48,30 @@
                 </tr>
             </thead>
             <tbody>
-            @foreach (LibraryManagementSystem.Models.BooksAvailable books in userBooks)
+            @foreach (LibraryManagementSystem.Models.BooksTransaction books in Model.books)
             {
-                      var t = trans.Where(x => x.BookId == books.BookId).SingleOrDefault();
-                 
                 <tr>
                     <td>
-                        @books.Title
+                        <div class="d-flex align-items-center">
+                            <img src="@books.Book.ImageUrl"
+                             alt=""
+                             style="width: auto; height: 45px"
+                             class="rounded-1" />
+                        <div class="ms-3">
+                            <p class="fw-bold mb-1">@Html.DisplayFor(modelItem => books.Book.Title)</p>
+                            <p class="text-muted mb-0">by @Html.DisplayFor(modelItem=>books.Book.Author)</p>
+                        </div>
+                        </div>
                     </td>
                     <td>
-                        @books.Author
+                       @books.IssueDate.Value.ToShortDateString()
                     </td>
                     <td>
-                       @t.IssueDate.Value.ToShortDateString()
+                         @books.DueDate.Value.ToShortDateString()
                     </td>
                     <td>
-                        @t.DueDate.Value.ToShortDateString()
-                    </td>
-                    <td>
-                        <a asp-action="RenewConfirm" asp-route-id="@t.TransId">Renew</a> |
-                        <a asp-action="Return" asp-route-id="@t.TransId">Return</a>
+                        <a asp-action="Renew" asp-route-id="@books.TransId">Renew</a> |
+                        <a asp-action="Return" asp-route-id="@books.TransId">Return</a>
                     </td>
                 </tr>
             }
@@ -78,42 +79,3 @@
         </table>
 </div>
 
-@*<div class="container pt-5">
-    <div class="row">
-        <div class=" col-lg-4 col-md-4  col-xl-4">
-            <img src=@Model.ImageUrl class="col-lg-2" alt="..." style="width:20rem;">
-        </div>
-
-
-        <div class="col-xl-8 col-lg-8 col-md-8 ">
-            <h3 class="card-title">@Html.DisplayFor(model => M)</h3>
-            <h4 class="card-subtitle mb-2 text-muted">by @Html.DisplayFor(model => model.Author)</h4>
-            <hr />
-            <dl class="d-flex row ">
-
-                <dt class="col-lg-2">
-                    @Html.DisplayNameFor(model => model.Genre)
-                </dt>
-                <dd class="col-lg-10">
-                    @Html.DisplayFor(model => model.Genre)
-                </dd>
-                <dt class="col-lg-2">
-                    @Html.DisplayNameFor(model => model.DateAdded)
-                </dt>
-                <dd class="col-lg-10">
-                    @Html.DisplayFor(model => model.DateAdded)
-                </dd>
-
-            </dl>
-            <p style="text-indent:2rem">
-                    @Html.DisplayFor(model => model.BookDescription)
-                </p>
-
-            <button class="btn-info">
-                <a asp-action="Details" asp-route-id="@Model.BookId" class="text-decoration-none" style="color:white">Know more!!!!!!</a>
-            </button>
-
-        </div>
-
-    </div>
-</div>*@

@@ -10,9 +10,11 @@
 </head>
 <body style="background-color:aliceblue">
     <header >
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-dark border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-dark border-bottom box-shadow ">
             <div class="container-fluid">
-                <a asp-area="" asp-controller="Home" asp-action="Index"><img src="/Images/l2.png" height="50" /></a>
+                <a asp-area="" asp-controller="Home" asp-action="Index">
+                    <img src="/Images/l2.png" height="50" style="height: 3em;vertical-align: middle; padding: 0 24px;cursor: pointer;" />
+                </a>
                
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
@@ -33,7 +35,7 @@
         </nav>
     </header>
     <div class="container">
-        <main role="main" class="pb-3">
+        <main role="main" class="pb-3 py-0">
             @RenderBody()
         </main>
     </div>

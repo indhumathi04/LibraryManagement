@@ -120,6 +120,16 @@ namespace LibraryManagementSystem.Models
                     .HasColumnName("status");
 
                 entity.Property(e => e.UserId).HasColumnName("userId");
+
+                entity.HasOne(d => d.Book)
+                    .WithMany(p => p.BooksTransactions)
+                    .HasForeignKey(d => d.BookId)
+                    .HasConstraintName("FK__booksTran__bookI__35BCFE0A");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.BooksTransactions)
+                    .HasForeignKey(d => d.UserId)
+                    .HasConstraintName("FK__booksTran__userI__34C8D9D1");
             });
 
             modelBuilder.Entity<UserDetail>(entity =>
